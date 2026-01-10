@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 
