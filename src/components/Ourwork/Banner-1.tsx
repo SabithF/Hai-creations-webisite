@@ -1,0 +1,152 @@
+import React, { useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+const easeOut = [0.16, 1, 0.3, 1] as const;
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: easeOut },
+  },
+};
+
+const galleryReveal = {
+  hidden: { height: 0, opacity: 0 },
+  show: { height: "auto", opacity: 1, transition: { duration: 0.5, ease: easeOut } },
+  exit: { height: 0, opacity: 0, transition: { duration: 0.35, ease: easeOut } },
+};
+
+const thumbVariants = {
+  hidden: { opacity: 0, y: 10 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, delay: i * 0.03, ease: easeOut },
+  }),
+};
+
+const BannerOne: React.FC = () => {
+  const [viewMore, setViewMore] = useState(false);
+  const galleryRef = useRef<HTMLDivElement | null>(null);
+
+  const images = useMemo(
+    () => Array.from({ length: 10 }, (_, i) => `/assets/img/design/${i + 1}.jpg`),
+    []
+  );
+
+  const featured = images.slice(0, 5); // show first 5 in featured grid
+  const more = images.slice(5); // show the rest when expanded
+
+  const onToggle = () => {
+    setViewMore((prev) => !prev);
+
+    // Smoothly bring the expanded gallery into view
+    setTimeout(() => {
+      if (!viewMore && galleryRef.current) {
+        galleryRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 50);
+  };
+
+  return (
+    <section className="relative">
+      {/* Banner */}
+      <img
+        src="/assets/banner/banner-2.png"
+        alt="Banner 2"
+        className="w-full h-auto"
+      />
+
+      <div className="mx-auto max-w-7xl px-4 py-16 md:py-20">
+        {/* FEATURED GRID */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6"
+        >
+          {featured.map((src, index) => (
+            <motion.div
+              key={src}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.25, ease: easeOut }}
+              className={[
+                "overflow-hidden rounded-2xl bg-slate-100 shadow-sm",
+                "transition-shadow hover:shadow-md",
+                index === 0 ? "md:col-span-2 md:row-span-2" : "",
+              ].join(" ")}
+            >
+              <img
+                src={src}
+                alt={`Work ${index + 1}`}
+                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* BUTTON */}
+        <div className="w-full flex justify-center">
+          <button
+            type="button"
+            onClick={onToggle}
+            className="
+              mt-12 md:mt-14
+              inline-flex items-center justify-center
+              rounded-full
+              px-6 py-3
+              bg-red-500 text-white
+              hover:bg-red-600
+              transition
+              focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:ring-offset-2
+            "
+          >
+            {viewMore ? "View less" : "View more"}
+          </button>
+        </div>
+
+        {/* EXPANDABLE GALLERY */}
+        <div ref={galleryRef} className="mt-10">
+          <AnimatePresence initial={false}>
+            {viewMore && (
+              <motion.div
+                key="more-gallery"
+                variants={galleryReveal}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                className="overflow-hidden"
+              >
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-5 md:gap-6 pt-2">
+                  {more.map((src, index) => (
+                    <motion.div
+                      key={src}
+                      custom={index}
+                      variants={thumbVariants}
+                      initial="hidden"
+                      animate="show"
+                      className="aspect-square overflow-hidden rounded-2xl bg-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <img
+                        src={src}
+                        alt={`Work ${index + 6}`}
+                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                        loading="lazy"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BannerOne;

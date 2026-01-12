@@ -12,3 +12,9 @@
 * {
   @apply font-arial;
 }
+
+.outline-red {
+  color: transparent;
+  -webkit-text-stroke: 2px #ef4444;
+  text-stroke: 2px #ef4444; 
+}
