@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@font-face {
+  font-family: arial;
+  src: url('/assets/font/arial.ttf') format('truetype');
+}
+
+* {
+  @apply font-arial;
+}
