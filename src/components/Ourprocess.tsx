@@ -71,9 +71,14 @@ const Ourprocess: React.FC = () => {
                         </motion.div>
                     </motion.div>
 
-                    {/* Right list */}
+                    {/* Right list */}          
+
+
+
+
+                    
                     <motion.div
-                        className="mx-auto max-w-2xl flex flex-col gap-10"
+                        className="mx-auto max-w-2xl  flex-col gap-10 hidden md:flex"
                         variants={container}
                         initial="hidden"
                         whileInView="show"
@@ -82,7 +87,7 @@ const Ourprocess: React.FC = () => {
 
                         {/* Step 1 */}
                         <motion.div
-                            className="flex items-center gap-10"
+                            className="flex flex-col md:flex-row items-center gap-10"
                             variants={makeItem(-60)}
                         >
                             <div className="w-[25%]">
@@ -105,7 +110,7 @@ const Ourprocess: React.FC = () => {
 
                         {/* Step 2 */}
                         <motion.div
-                            className="flex items-center gap-10"
+                            className="flex flex-col md:flex-row items-center gap-10"
                             variants={makeItem(60)}
                         >
                             <div className="w-[25%]" />
@@ -177,6 +182,126 @@ const Ourprocess: React.FC = () => {
                         </motion.div>
 
                     </motion.div>
+
+
+
+                   
+
+
+
+
+                    {/* My process on mobile screen ---------------------------*/}
+
+                    <motion.div
+                        className="mx-auto max-w-2xl flex flex-col gap-10  md:hidden"
+                        variants={container}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true, amount: 0.25 }}
+                    >
+
+                        {/* Mobile heading */}
+                        <div className="mb-10 md:hidden">
+                            <h2 className="text-3xl font-light text-slate-900">
+                                <span className="font-bold text-slate-400">Our</span> Process
+                            </h2>
+                            <div className="mt-6 h-[2px] w-16 bg-slate-300" />
+                        </div>
+
+                        {/* Step 1 */}
+                        <motion.div
+                            className="flex flex-col items-center gap-8  justify-center "
+                            variants={makeItem(-60)}
+                        >
+                            <div className="">
+                                <motion.div
+                                    variants={badge}
+                                    className="h-16 w-16 flex items-center justify-center
+          text-white font-bold text-2xl rounded-full bg-slate-800 shrink-0"
+                                >
+                                    01
+                                </motion.div>
+                            </div>
+
+                            <div className="gap-6 text-center">
+                                <h1 className="text-2xl pb-4  font-light">Strategy</h1>
+                                <p className="text-sm ">
+                                    We are a leading creative agency providing bespoke branding services to elevate your online presence. Specializing in unique and memorable visuals, we create branding that captures your tone of voice and resonates with your customers.
+                                </p>
+                            </div>
+                        </motion.div>
+                        {/* Step 2*/}
+                        <motion.div
+                            className="flex flex-col items-center gap-8  justify-center "
+                            variants={makeItem(-60)}
+                        >
+                            <div className="">
+                                <motion.div
+                                    variants={badge}
+                                    className="h-16 w-16 flex items-center justify-center
+          text-white font-bold text-2xl rounded-full bg-slate-600 shrink-0"
+                                >
+                                    02
+                                </motion.div>
+                            </div>
+
+                            <div className="gap-6 text-center">
+                                <h1 className="text-2xl pb-4  font-light">Strategy</h1>
+                                <p className="text-sm ">
+                                    We are a leading creative agency providing bespoke branding services to elevate your online presence. Specializing in unique and memorable visuals, we create branding that captures your tone of voice and resonates with your customers.
+                                </p>
+                            </div>
+                        </motion.div>
+                        {/* Step 3*/}
+                        <motion.div
+                            className="flex flex-col items-center gap-8  justify-center "
+                            variants={makeItem(-60)}
+                        >
+                            <div className="">
+                                <motion.div
+                                    variants={badge}
+                                    className="h-16 w-16 flex items-center justify-center
+          text-white font-bold text-2xl rounded-full bg-slate-800 shrink-0"
+                                >
+                                    03
+                                </motion.div>
+                            </div>
+
+                            <div className="gap-6 text-center">
+                                <h1 className="text-2xl pb-4  font-light">Strategy</h1>
+                                <p className="text-sm ">
+                                    We are a leading creative agency providing bespoke branding services to elevate your online presence. Specializing in unique and memorable visuals, we create branding that captures your tone of voice and resonates with your customers.
+                                </p>
+                            </div>
+                        </motion.div>
+                        {/* Step 4 */}
+                        <motion.div
+                            className="flex flex-col items-center gap-8  justify-center "
+                            variants={makeItem(-60)}
+                        >
+                            <div className="">
+                                <motion.div
+                                    variants={badge}
+                                    className="h-16 w-16 flex items-center justify-center
+          text-white font-bold text-2xl rounded-full bg-slate-600 shrink-0"
+                                >
+                                    04
+                                </motion.div>
+                            </div>
+
+                            <div className="gap-6 text-center">
+                                <h1 className="text-2xl pb-4  font-light">Strategy</h1>
+                                <p className="text-sm ">
+                                    We are a leading creative agency providing bespoke branding services to elevate your online presence. Specializing in unique and memorable visuals, we create branding that captures your tone of voice and resonates with your customers.
+                                </p>
+                            </div>
+                        </motion.div>
+
+
+
+
+                    </motion.div>
+                
 
 
 

@@ -16,11 +16,11 @@ const textFadeUp: Variants = {
 }
 
 const fadeFromLeft: Variants = {
-    hidden: { opacity: 0, x: -500 },
+    hidden: { opacity: 0, x: -200 },
     show: {
         opacity: 1,
         x: 0,
-        transition: { duration: 3, ease: [0.16, 1, 0.3, 1] },
+        transition: { duration: 2, ease: [0.16, 1, 0.3, 1] },
     },
 };
 
@@ -29,7 +29,7 @@ const fadeFromRight: Variants = {
     show: {
         opacity: 1,
         x: 0,
-        transition: { duration:3, ease: [0.16, 1, 0.3, 1] },
+        transition: { duration: 3, ease: [0.16, 1, 0.3, 1] },
     },
 };
 
@@ -92,13 +92,19 @@ const Ourwork: React.FC = () => {
             {/* Our work heading  */}
 
 
-            <motion.div className="mx-auto max-w-7xl text-center py-16 overflow-hidden">
+            <div className="mx-auto max-w-7xl text-center py-16">
                 <motion.h2
                     variants={fadeFromLeft}
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true, amount: 0.4 }}
-                    className="text-6xl text-slate-400 uppercase"
+                    viewport={{ once: true }}
+                    className="
+                            text-[2rem]
+                            sm:text-4xl
+                            md:text-6xl
+                            text-slate-400
+                            uppercase
+                        "
                 >
                     Our
                 </motion.h2>
@@ -107,18 +113,28 @@ const Ourwork: React.FC = () => {
                     variants={fadeFromRight}
                     initial="hidden"
                     whileInView="show"
-                    viewport={{ once: true, amount: 0.4 }}
-                    className="outline-red text-9xl md:text-[15rem] uppercase tracking-wider"
+                    viewport={{ once: true, amount: 0.15 }}
+
+                    className="
+                            outline-red
+                            text-[5rem]
+                            sm:text-[5rem]
+                            md:text-9xl
+                            lg:text-[15rem]
+                            uppercase
+                            tracking-wider
+                        "
                 >
                     WORK
                 </motion.h1>
-            </motion.div>
+
+            </div>
 
             {/* Logos */}
 
             <div className="px-6 pb-16 md:pb-32 mx-auto max-w-6xl flex">
-                <img src="/assets/img/logo 1.png" alt="logo" 
-                    />
+                <img src="/assets/img/logo 1.png" alt="logo"
+                />
             </div>
 
             {/* Banner one */}
