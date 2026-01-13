@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -31,7 +31,7 @@ const BannerOne: React.FC = () => {
   const [viewMore, setViewMore] = useState(false);
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
-  const images = Array.from({ length: 10 }, (_, i) => `/assets/img/design/${i + 1}.jpg`);
+  const images = Array.from({ length: 10 }, (_, i) => `/assets/img/corporate/${i + 1}.jpg`);
 
   const featured = images.slice(0, 5); 
   const more = images.slice(5); 
@@ -39,7 +39,7 @@ const BannerOne: React.FC = () => {
   const onToggle = () => {
     setViewMore((prev) => !prev);
 
-    // Smoothly bring the expanded gallery into view
+
     setTimeout(() => {
       if (!viewMore && galleryRef.current) {
         galleryRef.current.scrollIntoView({ behavior: "smooth", block: "start" });

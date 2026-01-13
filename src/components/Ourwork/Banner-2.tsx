@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
