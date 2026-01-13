@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, type Variants } from "framer-motion";
 import BannerOne from "./Ourwork/Banner-1";
+import BannerFive from "./Ourwork/Banner-2";
 
 const textFadeUp: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -122,6 +123,7 @@ const Ourwork: React.FC = () => {
 
             {/* Banner one */}
             <BannerOne />
+            <BannerFive />
 
 
 

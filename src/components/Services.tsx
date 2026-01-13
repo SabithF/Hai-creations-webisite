@@ -47,25 +47,7 @@ const Services: React.FC = () => {
 
 
                 <div className="flex gap-10 lg:gap-12">
-                    {/* LEFT LABEL */}
-                    {/* <div className="relative hidden md:flex w-36 lg:w-44 flex-col items-center">
-                        <div className="sticky top-24 flex flex-col items-center">
-                            <motion.div style={{ y: labelY }} className="will-change-transform">
-                                
-                                <motion.div style={{ rotate: -90 }} className="origin-center select-none">
-                                    <div className="flex flex-col items-center leading-none whitespace-nowrap">
-                                        <span className="text-5xl font-light text-slate-900">Services</span>
-                                        <span className="mt-4 text-5xl font-bold text-slate-400">Our</span>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-
-                            
-                            <span className="mt-8 h-16 w-[3px] bg-slate-300" />
-                        </div>
-                    </div> */}
-
-
+                  
                     <motion.div
                         style={{ y: labelY }}
                         className="relative hidden md:flex w-36 items-start justify-center"

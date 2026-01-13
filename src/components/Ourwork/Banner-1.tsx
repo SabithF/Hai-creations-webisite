@@ -31,13 +31,10 @@ const BannerOne: React.FC = () => {
   const [viewMore, setViewMore] = useState(false);
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
-  const images = useMemo(
-    () => Array.from({ length: 10 }, (_, i) => `/assets/img/design/${i + 1}.jpg`),
-    []
-  );
+  const images = Array.from({ length: 10 }, (_, i) => `/assets/img/design/${i + 1}.jpg`);
 
-  const featured = images.slice(0, 5); // show first 5 in featured grid
-  const more = images.slice(5); // show the rest when expanded
+  const featured = images.slice(0, 5); 
+  const more = images.slice(5); 
 
   const onToggle = () => {
     setViewMore((prev) => !prev);
@@ -66,7 +63,7 @@ const BannerOne: React.FC = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-1 gap-5 md:gap-6"
         >
           {featured.map((src, index) => (
             <motion.div
@@ -76,7 +73,7 @@ const BannerOne: React.FC = () => {
               className={[
                 "overflow-hidden rounded-2xl bg-slate-100 shadow-sm",
                 "transition-shadow hover:shadow-md",
-                index === 0 ? "md:col-span-2 md:row-span-2" : "",
+               ,
               ].join(" ")}
             >
               <img
@@ -119,7 +116,7 @@ const BannerOne: React.FC = () => {
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                className="overflow-hidden"
+                className="overflow-hidden "
               >
                 <div className="grid grid-cols-3 md:grid-cols-5 gap-5 md:gap-6 pt-2">
                   {more.map((src, index) => (
