@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -31,73 +31,79 @@ const BannerOne: React.FC = () => {
   const [viewMore, setViewMore] = useState(false);
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
-  const images = Array.from({ length: 10 }, (_, i) => `/assets/img/corporate/${i + 1}.jpg`);
+  const images = useMemo(
+    () => Array.from({ length: 10 }, (_, i) => `/assets/img/corporate/${i + 1}.jpg`),
+    []
+  );
 
-  const featured = images.slice(0, 5); 
-  const more = images.slice(5); 
+  const featured = images.slice(0, 5);
+  const more = images.slice(5);
 
   const onToggle = () => {
-    setViewMore((prev) => !prev);
-
-
-    setTimeout(() => {
-      if (!viewMore && galleryRef.current) {
-        galleryRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    setViewMore((prev) => {
+      const next = !prev;
+      if (next) {
+        requestAnimationFrame(() => {
+          galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       }
-    }, 50);
+      return next;
+    });
   };
 
   return (
     <section className="relative">
       {/* Banner */}
-      <img
-        src="/assets/banner/banner-2.png"
-        alt="Banner 2"
-        className="w-full h-auto"
-      />
+      <img src="/assets/banner/banner-2.png" alt="Banner" className="w-full h-auto" />
 
-      <div className="mx-auto max-w-7xl px-4 py-16 md:py-20">
-        {/* FEATURED GRID */}
+      <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+        {/* FEATURED – SINGLE IMAGE PER ROW */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-1 gap-5 md:gap-6"
+          className="space-y-8"
         >
           {featured.map((src, index) => (
             <motion.div
               key={src}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.25, ease: easeOut }}
-              className={[
-                "overflow-hidden rounded-2xl bg-slate-100 shadow-sm",
-                "transition-shadow hover:shadow-md",
-               ,
-              ].join(" ")}
+              className="
+                overflow-hidden rounded-3xl bg-slate-100 shadow-sm
+                hover:shadow-lg transition-shadow
+              "
             >
-              <img
-                src={src}
-                alt={`Work ${index + 1}`}
-                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                loading="lazy"
-              />
+              {/* SAME HEIGHT FOR ALL BIG IMAGES */}
+              <div className="
+  h-[320px]
+  sm:h-[460px]
+  md:h-[520px]
+  lg:h-[600px]
+  xl:h-[680px]
+">
+
+                <img
+                  src={src}
+                  alt={`Work ${index + 1}`}
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
         {/* BUTTON */}
-        <div className="w-full flex justify-center">
+        <div className="flex justify-center">
           <button
             type="button"
             onClick={onToggle}
             className="
-              mt-12 md:mt-14
-              inline-flex items-center justify-center
-              rounded-full
-              px-6 py-3
-              bg-red-500 text-white
-              hover:bg-red-600
+              mt-14 inline-flex items-center justify-center
+              rounded-full px-7 py-3
+              bg-red-500 text-white hover:bg-red-600
               transition
               focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:ring-offset-2
             "
@@ -107,7 +113,7 @@ const BannerOne: React.FC = () => {
         </div>
 
         {/* EXPANDABLE GALLERY */}
-        <div ref={galleryRef} className="mt-10">
+        <div ref={galleryRef} className="mt-12">
           <AnimatePresence initial={false}>
             {viewMore && (
               <motion.div
@@ -116,9 +122,9 @@ const BannerOne: React.FC = () => {
                 initial="hidden"
                 animate="show"
                 exit="exit"
-                className="overflow-hidden "
+                className="overflow-hidden"
               >
-                <div className="grid grid-cols-3 md:grid-cols-5 gap-5 md:gap-6 pt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
                   {more.map((src, index) => (
                     <motion.div
                       key={src}
@@ -126,14 +132,19 @@ const BannerOne: React.FC = () => {
                       variants={thumbVariants}
                       initial="hidden"
                       animate="show"
-                      className="aspect-square overflow-hidden rounded-2xl bg-slate-100 shadow-sm hover:shadow-md transition-shadow"
+                      className="
+                        overflow-hidden rounded-2xl bg-slate-100 shadow-sm
+                        hover:shadow-md transition-shadow
+                      "
                     >
-                      <img
-                        src={src}
-                        alt={`Work ${index + 6}`}
-                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                        loading="lazy"
-                      />
+                      <div className="aspect-square">
+                        <img
+                          src={src}
+                          alt={`Work ${index + 6}`}
+                          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                          loading="lazy"
+                        />
+                      </div>
                     </motion.div>
                   ))}
                 </div>
