@@ -23,16 +23,16 @@ const thumbVariants = {
   }),
 };
 
-const BannerFive: React.FC = () => {
+const BannerThree: React.FC = () => {
   const [viewMore, setViewMore] = useState(false);
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
   const images = useMemo(
-    () => Array.from({ length: 3 }, (_, i) => `/assets/img/newspaper/${i + 1}.png`),
+    () => Array.from({ length: 2 }, (_, i) => `/assets/img/webdesign/${i + 1}.png`),
     []
   );
 
-  const FEATURED_COUNT = 3;
+  const FEATURED_COUNT = 2;
   const featured = useMemo(
     () => images.slice(0, Math.min(FEATURED_COUNT, images.length)),
     [images]
@@ -59,7 +59,7 @@ const BannerFive: React.FC = () => {
   return (
     <section className="relative">
       {/* Banner */}
-      <img src="/assets/banner/newspaper-banner.jpg" alt="Banner 5" className="w-full h-auto" />
+      <img src="/assets/banner/web-banner.jpg" alt="Banner 9" className="w-full h-auto" />
 
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
         {/* FEATURED */}
@@ -146,4 +146,4 @@ const BannerFive: React.FC = () => {
   );
 };
 
-export default BannerFive;
+export default BannerThree;

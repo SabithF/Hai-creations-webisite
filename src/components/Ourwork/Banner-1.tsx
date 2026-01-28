@@ -32,7 +32,7 @@ const BannerOne: React.FC = () => {
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
   const images = useMemo(
-    () => Array.from({ length: 10 }, (_, i) => `/assets/img/corporate/${i + 1}.jpg`),
+    () => Array.from({ length: 10 }, (_, i) => `/assets/img/design/${i + 1}.png`),
     []
   );
 
@@ -54,7 +54,7 @@ const BannerOne: React.FC = () => {
   return (
     <section className="relative">
       {/* Banner */}
-      <img src="/assets/banner/banner-2.png" alt="Banner" className="w-full h-auto" />
+      <img src="/assets/banner/design-banner.png" alt="Banner" className="w-full h-auto" />
 
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
         {/* FEATURED – SINGLE IMAGE PER ROW */}

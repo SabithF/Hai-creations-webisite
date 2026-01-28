@@ -2,6 +2,14 @@ import React from "react";
 import { motion, type Variants } from "framer-motion";
 import BannerOne from "./Ourwork/Banner-1";
 import BannerFive from "./Ourwork/Banner-2";
+import BannerThree from "./Ourwork/Banner-3";
+import BannerFour from "./Ourwork/Banner-4";
+import BannerSix from "./Ourwork/Banner-6";
+import BannerSeven from "./Ourwork/Banner-7";
+import BannerEight from "./Ourwork/Banner-8";
+import BannerNine from "./Ourwork/Banner-9";
+import BannerTen from "./Ourwork/Banner-10";
+import BannerCor from "./Ourwork/Banner-cor";
 
 const textFadeUp: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -139,7 +147,27 @@ const Ourwork: React.FC = () => {
 
             {/* Banner one */}
             <BannerOne />
+            <BannerCor />
+            {/* paper */}
             <BannerFive />
+            
+
+            {/* portfolio */}
+            <BannerFour />
+            {/* Web Design */}
+            <BannerThree />
+            {/* social Media */}
+            <BannerSix />
+            {/* Events */}
+            <BannerSeven />
+            {/* Outdoor*/}
+            <BannerEight />
+            {/* Cartoon */}
+            <BannerNine />
+            {/* 2d Anim */}
+            <BannerTen />
+
+            
 
 
 
