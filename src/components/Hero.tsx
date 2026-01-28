@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
           className="
             pointer-events-none
             absolute z-10
-            top-[70%] md:top-[30%]
+            top-[70%] md:top-[35%]
             right-[-50px] w-[800px]
             md:right-[-80px] md:w-[1000px]
             lg:right-[-100px] lg:w-[1200px]
