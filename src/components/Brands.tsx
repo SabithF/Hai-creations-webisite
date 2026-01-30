@@ -16,7 +16,7 @@ const Brands: React.FC = () => {
 
                 {/* Logos */}
 
-                <div className="mt-10 md:mt-14">
+                <div className="mt-10 md:mt-14 flex justify-center">
                     <img src="/assets/img/logo 1.png" alt="Logos"
                     loading="lazy"
                     className="w-auto opacity-70 grayscale transition

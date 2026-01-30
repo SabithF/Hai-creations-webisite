@@ -140,8 +140,8 @@ const Ourwork: React.FC = () => {
 
             {/* Logos */}
 
-            <div className="px-6 pb-16 md:pb-32 mx-auto max-w-6xl flex">
-                <img src="/assets/img/logo 1.png" alt="logo"
+            <div className="px-6 pb-16 md:pb-32 mx-auto max-w-6xl justify-center flex">
+                <img src="/assets/img/logo 2.png" alt="logo"
                 />
             </div>
 
