@@ -60,7 +60,7 @@ const BannerOne: React.FC = () => {
         {/* FEATURED – SINGLE IMAGE PER ROW */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           className="space-y-8"
