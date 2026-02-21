@@ -33,6 +33,7 @@ const BannerEight: React.FC = () => {
   );
 
   const FEATURED_COUNT = 4;
+
   const featured = useMemo(
     () => images.slice(0, Math.min(FEATURED_COUNT, images.length)),
     [images]
@@ -48,7 +49,10 @@ const BannerEight: React.FC = () => {
 
       if (next) {
         requestAnimationFrame(() => {
-          galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+          galleryRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
         });
       }
 
@@ -59,16 +63,22 @@ const BannerEight: React.FC = () => {
   return (
     <section className="relative">
       {/* Banner */}
-      <img src="/assets/banner/outdoor-banner.jpg" alt="Banner 8" className="w-full h-auto" />
+      <img
+        src="/assets/banner/outdoor-banner.jpg"
+        alt="Banner 8"
+        className="w-full h-auto"
+        loading="lazy"
+        decoding="async"
+      />
 
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-        {/* FEATURED */}
+        {/* FEATURED – GRID */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="space-y-8"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8"
         >
           {featured.map((src, index) => (
             <motion.div
@@ -77,12 +87,13 @@ const BannerEight: React.FC = () => {
               transition={{ duration: 0.3, ease: easeOut }}
               className="overflow-hidden rounded-3xl bg-slate-100 shadow-sm hover:shadow-xl transition-shadow"
             >
-              <div className="h-[320px] sm:h-[420px] md:h-[520px] lg:h-[600px] xl:h-[680px]">
+              <div className="aspect-[16/10]">
                 <img
                   src={src}
                   alt={`Work ${index + 1}`}
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </motion.div>
@@ -102,7 +113,7 @@ const BannerEight: React.FC = () => {
           </div>
         )}
 
-        {/* EXPANDABLE GALLERY (only if extra images exist) */}
+        {/* EXPANDABLE GALLERY */}
         {hasMore && (
           <div ref={galleryRef} className="mt-12">
             <AnimatePresence initial={false}>
@@ -131,6 +142,7 @@ const BannerEight: React.FC = () => {
                             alt={`Work ${FEATURED_COUNT + index + 1}`}
                             className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                           />
                         </div>
                       </motion.div>

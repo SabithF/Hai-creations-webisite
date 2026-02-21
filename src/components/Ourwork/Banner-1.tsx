@@ -36,8 +36,9 @@ const BannerOne: React.FC = () => {
     []
   );
 
-  const featured = images.slice(0, 5);
-  const more = images.slice(5);
+  // ✅ 4 featured images for grid
+  const featured = images.slice(0, 4);
+  const more = images.slice(4);
 
   const onToggle = () => {
     setViewMore((prev) => {
@@ -57,38 +58,29 @@ const BannerOne: React.FC = () => {
       <img src="/assets/banner/design-banner.png" alt="Banner" className="w-full h-auto" />
 
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-        {/* FEATURED – SINGLE IMAGE PER ROW */}
+        {/* FEATURED – 4 IMAGES GRID */}
         <motion.div
           variants={containerVariants}
-          
+          initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="space-y-8"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8"
         >
           {featured.map((src, index) => (
             <motion.div
               key={src}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.25, ease: easeOut }}
-              className="
-                overflow-hidden rounded-3xl bg-slate-100 shadow-sm
-                hover:shadow-lg transition-shadow
-              "
+              className="overflow-hidden rounded-3xl bg-slate-100 shadow-sm hover:shadow-lg transition-shadow"
             >
-              {/* SAME HEIGHT FOR ALL BIG IMAGES */}
-              <div className="
-  h-[320px]
-  sm:h-[460px]
-  md:h-[520px]
-  lg:h-[600px]
-  xl:h-[680px]
-">
-
+              {/* ✅ Smaller, consistent size (less upscaling = less smudge) */}
+              <div className="aspect-[16/10]">
                 <img
                   src={src}
                   alt={`Work ${index + 1}`}
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </motion.div>
@@ -132,17 +124,15 @@ const BannerOne: React.FC = () => {
                       variants={thumbVariants}
                       initial="hidden"
                       animate="show"
-                      className="
-                        overflow-hidden rounded-2xl bg-slate-100 shadow-sm
-                        hover:shadow-md transition-shadow
-                      "
+                      className="overflow-hidden rounded-2xl bg-slate-100 shadow-sm hover:shadow-md transition-shadow"
                     >
                       <div className="aspect-square">
                         <img
                           src={src}
-                          alt={`Work ${index + 6}`}
+                          alt={`Work ${index + 5}`}
                           className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </motion.div>
