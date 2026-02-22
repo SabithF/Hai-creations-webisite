@@ -1,115 +1,48 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 
-type MenuTile = {
-  label: React.ReactNode;
-  path?: string; 
-  bg: string;
-  previewSrc: string; 
-  overlayClass?: string; 
-};
-
-const MENU_TILES: { top: MenuTile[]; middle: MenuTile[]; bottom: MenuTile[] } = {
-  top: [
-    { label: "Home", path: "/", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/main-banner.png" },
-    { label: "Origin", path: "/origin", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-2.png" },
-    { label: "Harvest", path: "/harvest", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-3.png" },
-  ],
-  middle: [
-    {
-      label: (
-        <div className="text-center">
-          <p className="tracking-[0.4em] text-2xl">Epikurion Grove</p>
-          <p className="text-xs mt-2 opacity-70">SINCE 1929</p>
-        </div>
-      ),
-      path: "/epikurion",
-      bg: "bg-[#5a3a35]",
-      previewSrc: "/assets/banners/main-banner.png",
-      overlayClass: "bg-black/55",
-    },
-  ],
-  bottom: [
-    { label: "Contact", path: "/contact", bg: "bg-[#4a2c2c]", previewSrc: "/assets/banners/banner-5.png" },
-    { label: "Gallery", bg: "bg-[#9b2d5d]", previewSrc: "/assets/banners/banner-41.png" },
-    { label: "More", bg: "bg-[#1f6f84]", previewSrc: "/assets/banners/banner-5.png" },
-  ],
-};
-
-const MenuTileBlock: React.FC<{ tile: MenuTile; onClick?: () => void }> = ({
-  tile,
-  onClick,
-}) => {
-  const clickable = Boolean(onClick);
-
-  return (
-    <div
-      onClick={onClick}
-      className={[
-        "group relative flex-1 flex items-center justify-center",
-        "text-white tracking-widest",
-        "overflow-hidden",
-        tile.bg,
-        clickable ? "cursor-pointer" : "cursor-default",
-        "hover:bg-white/20 transition-all",
-        "min-h-[33vh] sm:min-h-0",
-      ].join(" ")}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : -1}
-      onKeyDown={(e) => {
-        if (!clickable) return;
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      }}
-    >
-      {/* banner preview inside the tile */}
-      <img
-        src={tile.previewSrc}
-        alt=""
-        draggable={false}
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 h-full w-full object-cover opacity-0 scale-110 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700"
-      />
-
-      {/* overlay */}
-      <div
-        className={[
-          "absolute inset-0",
-          tile.overlayClass ?? "bg-black/45",
-          "opacity-0 group-hover:opacity-100 transition-opacity duration-300",
-        ].join(" ")}
-      />
-
-      {/* label */}
-      <div className="relative z-10 px-4 text-center">{tile.label}</div>
-    </div>
-  );
-};
-
 type NavScreenProps = {
-  open: boolean;     // ✅ controlled
+  open: boolean;
   onClose: () => void;
 };
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
-const panelVariants: Variants = {
+const panel: Variants = {
   hidden: { y: "-100%", opacity: 0 },
-  show: { y: 0, opacity: 1, transition: { duration: 0.45, ease: easeOut } },
-  exit: { y: "-100%", opacity: 0, transition: { duration: 0.3, ease: easeOut } },
+  show: { y: 0, opacity: 1, transition: { duration: 0.55, ease: easeOut } },
+  exit: { y: "-100%", opacity: 0, transition: { duration: 0.45, ease: easeOut } },
 };
 
-const NavScreen: React.FC<NavScreenProps> = ({ open, onClose }) => {
-  const navigate = useNavigate();
+const list: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06, delayChildren: 0.12 } },
+  exit: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+};
 
-  // ESC close + lock scroll while open
+const item: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: easeOut } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.25, ease: easeOut } },
+};
+
+const NAV_ITEMS = [
+  { label: "About", id: "about" },
+  { label: "Brands", id: "brands" },
+  { label: "Our Services", id: "services" },
+  { label: "Our Work", id: "work" },
+  { label: "Our Process", id: "process" },
+  { label: "Contact Us", id: "contact" },
+] as const;
+
+const NavScreen: React.FC<NavScreenProps> = ({ open, onClose }) => {
   useEffect(() => {
     if (!open) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
+
     window.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
 
@@ -119,84 +52,131 @@ const NavScreen: React.FC<NavScreenProps> = ({ open, onClose }) => {
     };
   }, [open, onClose]);
 
-  const go = (path?: string) => {
-    if (!path) return;
+  const goTo = (id: string) => {
     onClose();
-    navigate(path);
+    // wait a bit so the close animation starts, then scroll
+    window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 220);
   };
 
   return (
     <AnimatePresence>
       {open && (
-        <motion.section
-          variants={panelVariants}
+        <motion.aside
+          variants={panel}
           initial="hidden"
           animate="show"
           exit="exit"
-          className="fixed inset-0 z-[70] w-screen h-screen bg-black text-white"
+          className="fixed inset-0 z-[999] bg-white text-black"
           onClick={onClose}
         >
-          {/* stop clicks INSIDE menu from closing */}
-          <div className="flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
-            {/* Top row */}
-            <div className="flex flex-1 flex-col sm:flex-row">
-              {MENU_TILES.top.map((tile, idx) => (
-                <MenuTileBlock
-                  key={idx}
-                  tile={tile}
-                  onClick={tile.path ? () => go(tile.path) : undefined}
-                />
-              ))}
-            </div>
-
-            {/* Middle row */}
-            <div className="flex flex-1">
-              {MENU_TILES.middle.map((tile, idx) => (
-                <MenuTileBlock
-                  key={idx}
-                  tile={tile}
-                  onClick={tile.path ? () => go(tile.path) : undefined}
-                />
-              ))}
-            </div>
-
-            {/* Bottom row */}
-            <div className="flex flex-1 flex-col sm:flex-row">
-              {MENU_TILES.bottom.map((tile, idx) => (
-                <MenuTileBlock
-                  key={idx}
-                  tile={tile}
-                  onClick={tile.path ? () => go(tile.path) : undefined}
-                />
-              ))}
-            </div>
+          {/* subtle modern background grain / gradient */}
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -top-40 -right-40 h-[420px] w-[420px] rounded-full bg-red-500/10 blur-3xl" />
+            <div className="absolute -bottom-44 -left-44 h-[520px] w-[520px] rounded-full bg-black/5 blur-3xl" />
           </div>
 
-          {/* Bigger close button */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClose();
-            }}
-            className="
-              absolute top-5 right-5 z-[80]
-              h-12 min-w-[110px] px-4
-              rounded-full
-              bg-white/15 hover:bg-white/25 active:bg-white/30
-              ring-1 ring-white/25 hover:ring-white/40
-              backdrop-blur-md
-              text-white font-semibold tracking-widest text-sm
-              shadow-xl
-              flex items-center justify-center gap-2
-              transition
-            "
-            aria-label="Close menu"
+          <div
+            className="relative mx-auto flex h-full max-w-6xl flex-col px-6 py-6"
+            onClick={(e) => e.stopPropagation()}
           >
-            <span className="text-lg leading-none">×</span>
-            CLOSE
-          </button>
-        </motion.section>
+            {/* Top bar */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="h-2 w-2 rounded-full bg-red-600" />
+                <div className="text-xs tracking-[0.35em] uppercase text-black/60">
+                  Menu
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="
+                  inline-flex h-11 items-center justify-center rounded-full px-5
+                  bg-white
+                  ring-1 ring-black/10 hover:ring-red-500
+                  hover:text-red-600
+                  transition
+                "
+                aria-label="Close menu"
+              >
+                <span className="text-lg leading-none mr-2">×</span>
+                <span className="text-xs tracking-[0.25em] uppercase">Close</span>
+              </button>
+            </div>
+
+            {/* Center */}
+            <div className="flex flex-1 items-center">
+              <div className="w-full">
+                <div className="mb-7">
+                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">
+                    Navigate
+                    <span className="text-red-600">.</span>
+                  </h2>
+                  <p className="mt-2 max-w-xl text-black/60">
+                    A digital agency crafting modern brands, websites, and experiences.
+                  </p>
+                </div>
+
+                <motion.ul
+                  variants={list}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  className="grid gap-3 sm:gap-4"
+                >
+                  {NAV_ITEMS.map((it) => (
+                    <motion.li key={it.id} variants={item}>
+                      <button
+                        type="button"
+                        onClick={() => goTo(it.id)}
+                        className="
+                          group w-full rounded-2xl bg-white px-6 py-2 text-left
+                          ring-1 ring-black/10
+                          hover:ring-2 hover:ring-red-500
+                          transition
+                        "
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-2xl sm:text-xl font-semibold text-black group-hover:text-red-600 transition">
+                            {it.label}
+                          </span>
+
+                          <span className="inline-flex items-center gap-2 text-black/40 group-hover:text-red-600 transition">
+                            <span className="text-xs tracking-[0.25em] uppercase hidden sm:inline">
+                              Open
+                            </span>
+                            <span className="text-xl">→</span>
+                          </span>
+                        </div>
+
+                        <div className="mt-2 h-px w-full bg-black/5 group-hover:bg-red-500/25 transition" />
+                      </button>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+
+                {/* Footer row */}
+                <div className="mt-8 flex flex-wrap items-center gap-3 text-xs tracking-[0.25em] uppercase">
+                  <span className="text-black/50">Design</span>
+                  <span className="text-black/20">•</span>
+                  <span className="text-black/50">Development</span>
+                  <span className="text-black/20">•</span>
+                  <span className="text-black/50">Branding</span>
+                  <span className="text-black/20">•</span>
+                  <span className="text-black/50">Marketing</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom hint */}
+            <div className="pt-4 text-xs text-black/45">
+              Tip: Press <span className="font-semibold text-black/70">ESC</span> to close.
+            </div>
+          </div>
+        </motion.aside>
       )}
     </AnimatePresence>
   );

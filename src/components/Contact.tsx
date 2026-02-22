@@ -177,12 +177,12 @@ const Contact: React.FC = () => {
                 />
 
                 {/* Two buttons */}
-                <motion.div
+                {/* <motion.div
                   variants={fadeUp}
                   className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2"
                 >
                   <ActionCard
-                    title="Chat to us now"
+                    title="Chat with us now"
                     right={
                       <div className="flex items-center gap-3">
                         <span className="h-2 w-2 rounded-full bg-green-500" />
@@ -199,7 +199,7 @@ const Contact: React.FC = () => {
                     title="Book a call"
                     right={<span className="text-xl">＋</span>}
                   />
-                </motion.div>
+                </motion.div> */}
 
                 {/* Follow row */}
                 <motion.div
@@ -216,14 +216,14 @@ const Contact: React.FC = () => {
                       className="text-sm font-semibold hover:opacity-70"
                       aria-label="Instagram"
                     >
-                      Insta
+                      <img src="/assets/social/instagram.png" alt="insta" className="h-5 w-5  " />
                     </a>
                     <a
                       href="#"
                       className="text-sm font-semibold hover:opacity-70"
                       aria-label="LinkedIn"
                     >
-                      in
+                      <img src="/assets/social/facebook.png" alt="linkedin"  className="h-5 w-5  "/>
                     </a>
                   </div>
                 </motion.div>

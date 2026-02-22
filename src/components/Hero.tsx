@@ -2,7 +2,11 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React from "react";
 import { motion } from "framer-motion";
 
-const Hero: React.FC = () => {
+type HeroProps = {
+  onOpenMenu: () => void;
+};
+
+const Hero: React.FC<HeroProps> = ({ onOpenMenu }) => {
   return (
     <header>
       <section className="relative min-h-screen w-full overflow-hidden pb-32 md:pb-72">
@@ -10,6 +14,7 @@ const Hero: React.FC = () => {
         <button
           type="button"
           aria-label="Open menu"
+          onClick={onOpenMenu}
           className="
             absolute right-10 md:right-20 top-12 z-50
             inline-flex h-11 w-11 items-center justify-center
@@ -26,7 +31,6 @@ const Hero: React.FC = () => {
 
         {/* CENTER CONTENT */}
         <div className="mx-auto flex min-h-screen w-full flex-col items-center justify-center">
-          {/* Logo video animation */}
           <motion.video
             src="/assets/vdo/logo-vdo.mp4"
             autoPlay
@@ -38,7 +42,6 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.9, ease: "easeOut" }}
           />
 
-            
           <motion.div
             className="z-20 self-center md:self-start ml-0 md:ml-8 w-[50%] md:w-[35%] lg:w-[10%] xl:w-[10%]"
             initial={{ opacity: 0, y: 10 }}
@@ -58,7 +61,6 @@ const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* PENCIL IMAGE animation */}
         <motion.img
           src="/assets/img/pencil.jpg"
           alt="pencil"
