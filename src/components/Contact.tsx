@@ -72,33 +72,33 @@ const CardRow: React.FC<RowProps> = ({ label, value, href, right }) => {
   );
 };
 
-type ActionCardProps = {
-  title: string;
-  right?: React.ReactNode;
-  onClick?: () => void;
-};
+// type ActionCardProps = {
+//   title: string;
+//   right?: React.ReactNode;
+//   onClick?: () => void;
+// };
 
-const ActionCard: React.FC<ActionCardProps> = ({ title, right, onClick }) => {
-  return (
-    <motion.button
-      type="button"
-      onClick={onClick}
-      variants={fadeUp}
-      whileHover={{ y: -2 }}
-      transition={{ duration: 0.25, ease: easeOut }}
-      className={[
-        "w-full rounded-2xl bg-slate-100/80 px-4 sm:px-6 py-5",
-        "flex items-center justify-between gap-4",
-        "transition hover:bg-slate-100 active:scale-[0.99]",
-      ].join(" ")}
-    >
-      <span className="text-sm font-medium text-slate-900 sm:text-base">
-        {title}
-      </span>
-      <span className="shrink-0 text-slate-700">{right}</span>
-    </motion.button>
-  );
-};
+// const ActionCard: React.FC<ActionCardProps> = ({ title, right, onClick }) => {
+//   return (
+//     <motion.button
+//       type="button"
+//       onClick={onClick}
+//       variants={fadeUp}
+//       whileHover={{ y: -2 }}
+//       transition={{ duration: 0.25, ease: easeOut }}
+//       className={[
+//         "w-full rounded-2xl bg-slate-100/80 px-4 sm:px-6 py-5",
+//         "flex items-center justify-between gap-4",
+//         "transition hover:bg-slate-100 active:scale-[0.99]",
+//       ].join(" ")}
+//     >
+//       <span className="text-sm font-medium text-slate-900 sm:text-base">
+//         {title}
+//       </span>
+//       <span className="shrink-0 text-slate-700">{right}</span>
+//     </motion.button>
+//   );
+// };
 
 const Contact: React.FC = () => {
   return (
